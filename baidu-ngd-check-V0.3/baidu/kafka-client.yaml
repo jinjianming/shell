@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: kafka-client
+  template:
+    metadata:
+      labels:
+        name: kafka-client
+    spec:
+      containers:
+      - name: kafka-client
+        image: "registry.det.baidu.com/library/solsson/kafka:0.11.0.0"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2G
+          requests:
+            cpu: 100m
+            memory: 100m
+        command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
